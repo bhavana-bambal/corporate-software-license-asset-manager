@@ -1,0 +1,19 @@
+{
+  "companyName": "BharatTech Solutions Ltd",
+  "companyAddress": "Prestige Tech Park, Outer Ring Road, Bengaluru, Karnataka 560103",
+  "companyEmail": "it-assets@bharattech.com",
+  "companyPhone": "+91 80 4400 9900",
+  "currency": "₹",
+  "currencyCode": "INR",
+  "dateFormat": "YYYY-MM-DD",
+  "alertThresholds": {
+    "criticalDays": 7,
+    "urgentDays": 30,
+    "warningDays": 90,
+    "highUtilizationPercent": 80,
+    "criticalUtilizationPercent": 90
+  },
+  "autoRenewalDefault": true,
+  "allowEmployeeSoftwareRequests": true,
+  "lastBackup": "2026-08-31T07:36:23.217Z"
+}

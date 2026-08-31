@@ -1,0 +1,122 @@
+[
+  {
+    "vendorId": "VND-9135",
+    "vendorName": "Datadog India Pvt Ltd",
+    "contactPerson": "Aditi Sengupta",
+    "email": "india-enterprise@datadoghq.com",
+    "phone": "+91 80 8899 7766",
+    "website": "https://datadoghq.com",
+    "address": "Embassy Tech Village, Outer Ring Road, Bengaluru",
+    "rating": 4.5,
+    "status": "ACTIVE",
+    "createdAt": "2026-08-31T07:42:51.388Z"
+  },
+  {
+    "vendorId": "VND-001",
+    "vendorName": "Microsoft India Pvt Ltd",
+    "contactPerson": "Vikram Malhotra",
+    "email": "enterprisesales@microsoft.co.in",
+    "phone": "+91 80 6789 1000",
+    "website": "https://www.microsoft.com/en-in",
+    "address": "Signature Towers, Outer Ring Road, Bellandur, Bengaluru, Karnataka 560103",
+    "rating": 4.8,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-10T10:00:00.000Z"
+  },
+  {
+    "vendorId": "VND-002",
+    "vendorName": "Adobe Systems India Pvt Ltd",
+    "contactPerson": "Ananya Roy",
+    "email": "corporate.india@adobe.com",
+    "phone": "+91 120 244 4711",
+    "website": "https://www.adobe.com/in",
+    "address": "Adobe Towers, Sector 132, Noida, Uttar Pradesh 201304",
+    "rating": 4.6,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-10T10:30:00.000Z"
+  },
+  {
+    "vendorId": "VND-003",
+    "vendorName": "Atlassian India LLP",
+    "contactPerson": "Karan Patel",
+    "email": "sales-in@atlassian.com",
+    "phone": "+91 80 4683 2000",
+    "website": "https://www.atlassian.com",
+    "address": "Prestige Trade Tower, Palace Road, Bengaluru, Karnataka 560001",
+    "rating": 4.7,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-11T09:15:00.000Z"
+  },
+  {
+    "vendorId": "VND-004",
+    "vendorName": "JetBrains s.r.o. (India Distributor)",
+    "contactPerson": "Siddharth Nair",
+    "email": "sales@jetbrains-india.in",
+    "phone": "+91 22 6123 4567",
+    "website": "https://www.jetbrains.com",
+    "address": "Bandra-Kurla Complex, Bandra East, Mumbai, Maharashtra 400051",
+    "rating": 4.9,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-12T11:00:00.000Z"
+  },
+  {
+    "vendorId": "VND-005",
+    "vendorName": "Amazon Web Services India",
+    "contactPerson": "Sneha Kulkarni",
+    "email": "aws-sales-india@amazon.com",
+    "phone": "+91 80 4000 8000",
+    "website": "https://aws.amazon.com/in",
+    "address": "World Trade Centre, Malleshwaram West, Bengaluru, Karnataka 560055",
+    "rating": 4.9,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-12T14:00:00.000Z"
+  },
+  {
+    "vendorId": "VND-006",
+    "vendorName": "Salesforce.com India Pvt Ltd",
+    "contactPerson": "Rahul Sen",
+    "email": "apac-support@salesforce.com",
+    "phone": "+91 40 6789 2200",
+    "website": "https://www.salesforce.com/in",
+    "address": "Divyasree Orion, Gachibowli, Hyderabad, Telangana 500032",
+    "rating": 4.5,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-14T10:00:00.000Z"
+  },
+  {
+    "vendorId": "VND-007",
+    "vendorName": "Zoom Video Communications India",
+    "contactPerson": "Deepika Rao",
+    "email": "india-enterprise@zoom.us",
+    "phone": "+91 22 4567 8900",
+    "website": "https://zoom.us",
+    "address": "Maker Maxity, BKC, Mumbai, Maharashtra 400051",
+    "rating": 4.4,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-15T15:30:00.000Z"
+  },
+  {
+    "vendorId": "VND-008",
+    "vendorName": "GitHub Inc. (Microsoft)",
+    "contactPerson": "Arjun Dasgupta",
+    "email": "enterprise@github.com",
+    "phone": "+91 80 6789 5555",
+    "website": "https://github.com",
+    "address": "Outer Ring Road, Marathahalli, Bengaluru, Karnataka 560037",
+    "rating": 4.9,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-16T12:00:00.000Z"
+  },
+  {
+    "vendorId": "VND-009",
+    "vendorName": "Figma Inc. APAC",
+    "contactPerson": "Meera Chawla",
+    "email": "apac-sales@figma.com",
+    "phone": "+91 80 4321 9876",
+    "website": "https://www.figma.com",
+    "address": "Indiranagar 100ft Road, Bengaluru, Karnataka 560038",
+    "rating": 4.8,
+    "status": "ACTIVE",
+    "createdAt": "2025-01-17T11:45:00.000Z"
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "USR-001",
+    "name": "Aarav Sharma",
+    "email": "admin@bharattech.com",
+    "password": "$2a$10$g2hyfSpO7CLFDpe8XbeZhO24.lMmlC6GR34qc87LQZ6gC6MfqAWkm",
+    "role": "ADMIN",
+    "department": "Information Technology",
+    "designation": "VP of IT Infrastructure",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80",
+    "createdAt": "2025-01-10T09:00:00.000Z"
+  },
+  {
+    "id": "USR-002",
+    "name": "Priya Sundaram",
+    "email": "manager@bharattech.com",
+    "password": "$2a$10$8cemY8zh1BZYMxFOXIuaWOvORZngtMXvDvqwOIeSTQ1YY9yo5QBGC",
+    "role": "LICENSE_MANAGER",
+    "department": "IT Procurement & Assets",
+    "designation": "Senior Software License Manager",
+    "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80",
+    "createdAt": "2025-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "USR-003",
+    "name": "Rohan Deshmukh",
+    "email": "employee@bharattech.com",
+    "password": "$2a$10$ZltPyOkYll/EYWNoVZaLf.8N2C2zMlBChO2ZkI3vVXsWpcyM9FjWu",
+    "role": "EMPLOYEE",
+    "department": "Engineering",
+    "designation": "Senior Full Stack Engineer",
+    "employeeId": "EMP-101",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80",
+    "createdAt": "2025-02-01T11:00:00.000Z"
+  }
+]

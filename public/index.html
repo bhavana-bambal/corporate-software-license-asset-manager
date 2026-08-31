@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corporate Software License & Asset Manager | BharatTech</title>
+  <meta name="description" content="Enterprise Software License and IT Asset Management Platform with dynamic seat allocation, renewal pipelines, and compliance reporting.">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- jsPDF & html2canvas for PDF Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  
+  <!-- Custom Design System -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==================== AUTH VIEW (LOGIN SCREEN) ==================== -->
+  <div id="view-login" class="d-none min-vh-100 d-flex align-items-center justify-content-center p-3" style="background: radial-gradient(circle at top right, #1e1b4b, #0f172a 60%, #030712);">
+    <div class="card-custom p-4 p-md-5" style="max-width: 480px; width: 100%; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);">
+      <div class="text-center mb-4">
+        <div class="brand-icon mx-auto mb-3" style="width: 52px; height: 52px; font-size: 1.6rem;">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <h4 class="fw-bold text-white mb-1">BharatTech Solutions</h4>
+        <p class="text-secondary small">Corporate Software License & Asset Manager</p>
+      </div>
+
+      <!-- Demo Credentials Helper Banner -->
+      <div class="p-3 mb-4 rounded" style="background: rgba(79, 70, 229, 0.1); border: 1px dashed #6366f1;">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span class="small fw-semibold text-white"><i class="fa-solid fa-key me-1 text-warning"></i> Quick Demo Logins:</span>
+          <span class="badge bg-primary" style="font-size: 0.65rem;">One-Click Fill</span>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <button type="button" class="btn btn-sm btn-outline-light flex-grow-1" onclick="fillLoginForm('admin@bharattech.com', 'Admin@123')">
+            <i class="fa-solid fa-shield-halved text-danger me-1"></i> Admin
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-light flex-grow-1" onclick="fillLoginForm('manager@bharattech.com', 'Manager@123')">
+            <i class="fa-solid fa-user-gear text-info me-1"></i> License Mgr
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-light flex-grow-1" onclick="fillLoginForm('employee@bharattech.com', 'Employee@123')">
+            <i class="fa-solid fa-user text-success me-1"></i> Employee
+          </button>
+        </div>
+      </div>
+
+      <form id="login-form">
+        <div class="mb-3">
+          <label class="form-label-custom">Corporate Email Address</label>
+          <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-regular fa-envelope"></i></span>
+            <input type="email" id="login-email" class="form-control form-control-custom" placeholder="name@bharattech.com" required value="admin@bharattech.com">
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="d-flex justify-content-between">
+            <label class="form-label-custom">Password</label>
+            <span class="small text-muted">Default: Admin@123</span>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-lock"></i></span>
+            <input type="password" id="login-password" class="form-control form-control-custom" placeholder="••••••••" required value="Admin@123">
+          </div>
+        </div>
+        <button type="submit" id="login-submit-btn" class="btn-primary-custom w-100 justify-content-center py-2">
+          <i class="fa-solid fa-right-to-bracket me-2"></i> Sign In to Portal
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN APPLICATION CONTAINER ==================== -->
+  <div id="app-container" class="d-none">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <div class="brand-text">
+          <h5>BharatTech</h5>
+          <span>Asset Manager</span>
+        </div>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-section-label">Main Menu</div>
+        <a class="nav-link active" data-view="view-dashboard">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </a>
+        <a class="nav-link" data-view="view-software">
+          <i class="fa-solid fa-cubes"></i>
+          <span>Software Assets</span>
+          <span class="nav-badge bg-primary" id="sidebar-sw-count">12</span>
+        </a>
+        <a class="nav-link" data-view="view-licenses">
+          <i class="fa-solid fa-key"></i>
+          <span>License Management</span>
+          <span class="nav-badge bg-warning text-dark" id="sidebar-lic-count">18</span>
+        </a>
+        <a class="nav-link" data-view="view-allocations">
+          <i class="fa-solid fa-users-gear"></i>
+          <span>Seat Allocation</span>
+        </a>
+
+        <div class="menu-section-label role-admin-only">Directory</div>
+        <a class="nav-link role-admin-only" data-view="view-employees">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Employees</span>
+        </a>
+        <a class="nav-link role-admin-only" data-view="view-vendors">
+          <i class="fa-solid fa-building"></i>
+          <span>Vendors</span>
+        </a>
+
+        <div class="menu-section-label">Operations</div>
+        <a class="nav-link" data-view="view-renewals">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>Renewals</span>
+          <span class="nav-badge bg-danger" id="sidebar-renewal-badge">5</span>
+        </a>
+        <a class="nav-link" data-view="view-notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span>Alerts & Notifications</span>
+          <span class="nav-badge bg-danger" id="sidebar-notif-count">0</span>
+        </a>
+        <a class="nav-link" data-view="view-reports">
+          <i class="fa-solid fa-file-invoice-dollar"></i>
+          <span>Reports & Analytics</span>
+        </a>
+
+        <div class="menu-section-label role-admin-manager">Governance</div>
+        <a class="nav-link role-admin-manager" data-view="view-audit">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span>Audit Logs</span>
+        </a>
+        <a class="nav-link role-admin-only" data-view="view-settings">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Settings</span>
+        </a>
+
+        <!-- Employee Specific Menu Link -->
+        <div class="menu-section-label role-employee-only">My Workspace</div>
+        <a class="nav-link role-employee-only" data-view="view-employee-portal">
+          <i class="fa-solid fa-laptop-code"></i>
+          <span>My Software & Keys</span>
+        </a>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="user-avatar" id="sidebar-user-avatar">
+          <div class="user-info">
+            <h6 id="sidebar-user-name">Aarav Sharma</h6>
+            <span class="badge bg-primary" id="sidebar-user-role" style="font-size: 0.65rem;">ADMIN</span>
+          </div>
+          <button class="btn btn-sm btn-link text-secondary ms-auto" title="Sign Out" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div id="main-wrapper">
+      
+      <!-- TOP NAVBAR -->
+      <header id="top-navbar">
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-link text-secondary d-lg-none" id="sidebar-toggle-btn">
+            <i class="fa-solid fa-bars fs-5"></i>
+          </button>
+          <div class="search-bar-container d-none d-md-block">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="global-search-input" class="search-bar-input" placeholder="Search software, licenses, employees, keys...">
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <!-- Quick Role Switcher for Evaluator Demo -->
+          <div class="demo-role-badge d-none d-sm-flex">
+            <i class="fa-solid fa-user-shield text-warning"></i>
+            <span>Role:</span>
+            <select id="quick-role-switcher" onchange="switchRole(this.value)">
+              <option value="ADMIN">ADMIN</option>
+              <option value="LICENSE_MANAGER">LICENSE MANAGER</option>
+              <option value="EMPLOYEE">EMPLOYEE</option>
+            </select>
+          </div>
+
+          <!-- Notification Bell -->
+          <div class="notification-btn" id="notif-bell-btn">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-badge-count d-none" id="top-notif-count">0</span>
+          </div>
+
+          <!-- User Profile Dropdown -->
+          <div class="dropdown">
+            <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2" data-bs-toggle="dropdown">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="user-avatar" id="top-user-avatar" style="width: 34px; height: 34px;">
+              <span class="d-none d-md-inline text-white small fw-medium" id="top-user-name">Aarav Sharma</span>
+              <i class="fa-solid fa-chevron-down small text-secondary"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary mt-2">
+              <li><h6 class="dropdown-header text-muted" id="top-user-designation">VP of IT Infrastructure</h6></li>
+              <li><a class="dropdown-item text-light small" href="#" onclick="showSettings()"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
+              <li><hr class="dropdown-divider border-secondary"></li>
+              <li><a class="dropdown-item text-danger small" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- NOTIFICATION DROPDOWN DRAWER -->
+      <div id="notification-dropdown">
+        <div class="notif-header">
+          <h6 class="m-0 text-white fw-bold"><i class="fa-solid fa-bell me-2 text-warning"></i> Notifications</h6>
+          <button class="btn btn-sm btn-link text-primary p-0 text-decoration-none small" onclick="markAllNotificationsRead()">Mark all as read</button>
+        </div>
+        <div class="notif-list" id="notif-dropdown-list">
+          <!-- Populated by JavaScript -->
+        </div>
+        <div class="p-2 text-center border-top border-secondary bg-dark">
+          <a href="#" class="small text-primary text-decoration-none fw-semibold" onclick="navigateTo('view-notifications')">View All Notifications →</a>
+        </div>
+      </div>
+
+      <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+      <main id="content-container">
+
+        <!-- 1. DASHBOARD VIEW -->
+        <section id="view-dashboard" class="page-view active">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>Executive Dashboard</h3>
+              <p>Real-time corporate software assets, license utilization, and expenditure overview</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-secondary-custom" onclick="refreshDashboard()"><i class="fa-solid fa-rotate me-1"></i> Refresh</button>
+              <button class="btn-primary-custom role-admin-manager" onclick="openAddLicenseModal()"><i class="fa-solid fa-plus me-1"></i> New License</button>
+            </div>
+          </div>
+
+          <!-- KPI Cards Grid (8 Dynamic KPIs) -->
+          <div class="row g-3 mb-4">
+            <div class="col-xl-3 col-md-6">
+              <div class="kpi-card" style="--kpi-color: #6366f1; --kpi-bg: rgba(99, 102, 241, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-cubes"></i></div>
+                <div class="kpi-details">
+                  <span>Total Software Assets</span>
+                  <h4 id="kpi-total-software">0</h4>
+                  <div class="kpi-subtext"><span id="kpi-categories-count">0</span> Categories</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="kpi-card" style="--kpi-color: #10b981; --kpi-bg: rgba(16, 185, 129, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="kpi-details">
+                  <span>Active Licenses</span>
+                  <h4 id="kpi-active-licenses">0</h4>
+                  <div class="kpi-subtext"><span id="kpi-utilization-rate">0%</span> Overall Utilization</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="kpi-card" style="--kpi-color: #0ea5e9; --kpi-bg: rgba(14, 165, 233, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-chair"></i></div>
+                <div class="kpi-details">
+                  <span>Total Seats Capacity</span>
+                  <h4 id="kpi-total-seats">0</h4>
+                  <div class="kpi-subtext"><span id="kpi-allocated-seats" class="text-primary fw-semibold">0</span> Allocated / <span id="kpi-available-seats" class="text-success fw-semibold">0</span> Free</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="kpi-card" style="--kpi-color: #8b5cf6; --kpi-bg: rgba(139, 92, 246, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                <div class="kpi-details">
+                  <span>Total Annual Spend</span>
+                  <h4 id="kpi-total-spend">₹ 0</h4>
+                  <div class="kpi-subtext">Across <span id="kpi-total-vendors">0</span> Vendors</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2 KPIs -->
+            <div class="col-xl-3 col-md-6">
+              <div class="kpi-card" style="--kpi-color: #f59e0b; --kpi-bg: rgba(245, 158, 11, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="kpi-details">
+                  <span>Expiring Soon (&le;90d)</span>
+                  <h4 id="kpi-expiring-soon" class="text-warning">0</h4>
+                  <div class="kpi-subtext"><span id="kpi-urgent-count">0</span> Urgent (&le;30d)</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="kpi-card" style="--kpi-color: #ef4444; --kpi-bg: rgba(239, 68, 68, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="kpi-details">
+                  <span>Expired Licenses</span>
+                  <h4 id="kpi-expired" class="text-danger">0</h4>
+                  <div class="kpi-subtext">Requires immediate action</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="kpi-card" style="--kpi-color: #14b8a6; --kpi-bg: rgba(20, 184, 166, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-user-check"></i></div>
+                <div class="kpi-details">
+                  <span>Active Assignments</span>
+                  <h4 id="kpi-active-assignments">0</h4>
+                  <div class="kpi-subtext">Covering <span id="kpi-employees-count">0</span> Employees</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="kpi-card" style="--kpi-color: #ec4899; --kpi-bg: rgba(236, 72, 153, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+                <div class="kpi-details">
+                  <span>Pending Renewals</span>
+                  <h4 id="kpi-pending-renewals">0</h4>
+                  <div class="kpi-subtext">In procurement pipeline</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row 1: License Utilization & Expiration Timeline -->
+          <div class="row g-3 mb-4">
+            <div class="col-lg-8">
+              <div class="card-custom h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h6 class="text-white fw-bold m-0"><i class="fa-solid fa-chart-column me-2 text-primary"></i> License Seat Utilization (Allocated vs Available)</h6>
+                  <span class="badge bg-dark border border-secondary text-secondary small">Top 8 Assets</span>
+                </div>
+                <div style="height: 280px; position: relative;">
+                  <canvas id="chart-utilization"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card-custom h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h6 class="text-white fw-bold m-0"><i class="fa-solid fa-hourglass-half me-2 text-warning"></i> Expiration Status</h6>
+                </div>
+                <div style="height: 280px; position: relative;">
+                  <canvas id="chart-expiration"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row 2: Software by Category, Top Vendor Spending, Status Distribution -->
+          <div class="row g-3 mb-4">
+            <div class="col-lg-4">
+              <div class="card-custom h-100">
+                <h6 class="text-white fw-bold mb-3"><i class="fa-solid fa-chart-pie me-2 text-info"></i> Software by Category</h6>
+                <div style="height: 250px; position: relative;">
+                  <canvas id="chart-category"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card-custom h-100">
+                <h6 class="text-white fw-bold mb-3"><i class="fa-solid fa-building-columns me-2 text-success"></i> Spend by Vendor (INR ₹)</h6>
+                <div style="height: 250px; position: relative;">
+                  <canvas id="chart-vendor-spend"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card-custom h-100">
+                <h6 class="text-white fw-bold mb-3"><i class="fa-solid fa-circle-nodes me-2 text-accent"></i> License Health Status</h6>
+                <div style="height: 250px; position: relative;">
+                  <canvas id="chart-status"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Items & Recent Activity -->
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="card-custom h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h6 class="text-white fw-bold m-0"><i class="fa-solid fa-bell me-2 text-danger"></i> Urgent Licenses Requiring Attention</h6>
+                  <button class="btn btn-sm btn-link text-primary text-decoration-none" onclick="navigateTo('view-renewals')">Manage Renewals &rarr;</button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table-custom">
+                    <thead>
+                      <tr>
+                        <th>Software</th>
+                        <th>Expiration</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dashboard-urgent-licenses-table">
+                      <!-- Populated by JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card-custom h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h6 class="text-white fw-bold m-0"><i class="fa-solid fa-list-check me-2 text-primary"></i> Recent Audit Log Activity</h6>
+                  <button class="btn btn-sm btn-link text-primary text-decoration-none" onclick="navigateTo('view-audit')">Full Audit Trail &rarr;</button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table-custom">
+                    <thead>
+                      <tr>
+                        <th>Time</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dashboard-recent-audits-table">
+                      <!-- Populated by JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. SOFTWARE ASSETS VIEW -->
+        <section id="view-software" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>Software Assets</h3>
+              <p>Manage corporate software applications, enterprise suites, categories and licenses</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-primary-custom role-admin-manager" onclick="openAddSoftwareModal()"><i class="fa-solid fa-plus me-1"></i> Add Software</button>
+            </div>
+          </div>
+
+          <!-- Filters & Controls Bar -->
+          <div class="card-custom mb-3 p-3">
+            <div class="row g-2 align-items-center">
+              <div class="col-md-4">
+                <div class="position-relative">
+                  <i class="fa-solid fa-magnifying-glass position-absolute text-muted" style="left: 12px; top: 12px;"></i>
+                  <input type="text" id="software-search-input" class="form-control-custom ps-5" placeholder="Search by name, ID or vendor...">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <select id="software-filter-category" class="form-select-custom" onchange="loadSoftware()">
+                  <option value="ALL">All Categories</option>
+                  <option value="Productivity & Collaboration">Productivity & Collaboration</option>
+                  <option value="Development Tools">Development Tools</option>
+                  <option value="Design & Multimedia">Design & Multimedia</option>
+                  <option value="Cloud Infrastructure">Cloud Infrastructure</option>
+                  <option value="DevOps & Source Control">DevOps & Source Control</option>
+                  <option value="CRM & Customer Success">CRM & Customer Success</option>
+                  <option value="Business Intelligence & Data">Business Intelligence & Data</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select id="software-filter-dept" class="form-select-custom" onchange="loadSoftware()">
+                  <option value="ALL">All Departments</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Design & Marketing">Design & Marketing</option>
+                  <option value="DevOps & Cloud Ops">DevOps & Cloud Ops</option>
+                  <option value="Sales & Business Dev">Sales & Business Dev</option>
+                  <option value="Data & Analytics">Data & Analytics</option>
+                </select>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="text-secondary small fw-semibold">Total: <span id="software-results-count" class="text-white">0</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Software Data Table -->
+          <div class="table-responsive-custom">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Software ID</th>
+                  <th>Software Name</th>
+                  <th>Category</th>
+                  <th>Vendor</th>
+                  <th>Department</th>
+                  <th>Licenses</th>
+                  <th>Seats (Allocated/Total)</th>
+                  <th>Status</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="software-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 3. LICENSE MANAGEMENT VIEW -->
+        <section id="view-licenses" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>License Management</h3>
+              <p>Track enterprise license keys, seat allocations, expiration dates, and financial metrics</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-secondary-custom" onclick="loadLicenses()"><i class="fa-solid fa-rotate me-1"></i> Refresh</button>
+              <button class="btn-primary-custom role-admin-manager" onclick="openAddLicenseModal()"><i class="fa-solid fa-plus me-1"></i> Add License</button>
+            </div>
+          </div>
+
+          <!-- License Filters Bar -->
+          <div class="card-custom mb-3 p-3">
+            <div class="row g-2 align-items-center">
+              <div class="col-md-4">
+                <div class="position-relative">
+                  <i class="fa-solid fa-magnifying-glass position-absolute text-muted" style="left: 12px; top: 12px;"></i>
+                  <input type="text" id="license-search-input" class="form-control-custom ps-5" placeholder="Search license ID, key, software...">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <select id="license-filter-status" class="form-select-custom" onchange="loadLicenses()">
+                  <option value="ALL">All Expiration Statuses</option>
+                  <option value="ACTIVE">ACTIVE</option>
+                  <option value="EXPIRING SOON">EXPIRING SOON (&le;90d)</option>
+                  <option value="URGENT">URGENT (&le;30d)</option>
+                  <option value="CRITICAL">CRITICAL (&le;7d)</option>
+                  <option value="EXPIRED">EXPIRED</option>
+                  <option value="RENEWAL PENDING">RENEWAL PENDING</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select id="license-filter-vendor" class="form-select-custom" onchange="loadLicenses()">
+                  <option value="ALL">All Vendors</option>
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="text-secondary small fw-semibold">Licenses: <span id="license-results-count" class="text-white">0</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Licenses Table -->
+          <div class="table-responsive-custom">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>License ID</th>
+                  <th>Software</th>
+                  <th>Vendor</th>
+                  <th>Key / Reference</th>
+                  <th>Seats Utilization</th>
+                  <th>Expiration Date</th>
+                  <th>Cost (INR)</th>
+                  <th>Status</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="licenses-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4. SEAT ALLOCATION VIEW -->
+        <section id="view-allocations" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>License Seat Allocation</h3>
+              <p>Assign software license seats to employees with strict invariant capacity enforcement</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-primary-custom role-admin-manager" onclick="openAssignSeatModal()"><i class="fa-solid fa-user-plus me-1"></i> Allocate Seat</button>
+            </div>
+          </div>
+
+          <!-- Seat Allocation KPI summary cards -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <div class="kpi-card" style="--kpi-color: #4f46e5; --kpi-bg: rgba(79, 70, 229, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
+                <div class="kpi-details">
+                  <span>Total Active Assignments</span>
+                  <h4 id="alloc-total-active">0</h4>
+                  <div class="kpi-subtext">Active seat holdings</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="kpi-card" style="--kpi-color: #10b981; --kpi-bg: rgba(16, 185, 129, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-chair"></i></div>
+                <div class="kpi-details">
+                  <span>Free / Available Seats</span>
+                  <h4 id="alloc-free-seats">0</h4>
+                  <div class="kpi-subtext">Ready for employee assignment</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="kpi-card" style="--kpi-color: #ef4444; --kpi-bg: rgba(239, 68, 68, 0.15);">
+                <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="kpi-details">
+                  <span>Fully Occupied (100%)</span>
+                  <h4 id="alloc-maxed-licenses">0</h4>
+                  <div class="kpi-subtext">Licenses at zero availability</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Allocation Filter Bar -->
+          <div class="card-custom mb-3 p-3">
+            <div class="row g-2 align-items-center">
+              <div class="col-md-4">
+                <input type="text" id="alloc-search-input" class="form-control-custom" placeholder="Search employee name, software or ID...">
+              </div>
+              <div class="col-md-3">
+                <select id="alloc-filter-dept" class="form-select-custom" onchange="loadAllocations()">
+                  <option value="ALL">All Departments</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Design & Marketing">Design & Marketing</option>
+                  <option value="DevOps & Cloud Ops">DevOps & Cloud Ops</option>
+                  <option value="Sales & Business Dev">Sales & Business Dev</option>
+                  <option value="Data & Analytics">Data & Analytics</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select id="alloc-filter-status" class="form-select-custom" onchange="loadAllocations()">
+                  <option value="ACTIVE">Active Seats Only</option>
+                  <option value="REVOKED">Revocation History</option>
+                  <option value="ALL">All Records</option>
+                </select>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="text-secondary small fw-semibold">Records: <span id="alloc-results-count" class="text-white">0</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assignments Table -->
+          <div class="table-responsive-custom">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Assignment ID</th>
+                  <th>Employee</th>
+                  <th>Department</th>
+                  <th>Software</th>
+                  <th>License ID</th>
+                  <th>Assigned Date</th>
+                  <th>Expiration</th>
+                  <th>Status</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody id="allocations-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 5. EMPLOYEES VIEW -->
+        <section id="view-employees" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>Employee Directory</h3>
+              <p>Manage corporate workforce profiles, departments, and assigned software asset portfolios</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-primary-custom role-admin-only" onclick="openAddEmployeeModal()"><i class="fa-solid fa-plus me-1"></i> Add Employee</button>
+            </div>
+          </div>
+
+          <div class="card-custom mb-3 p-3">
+            <div class="row g-2 align-items-center">
+              <div class="col-md-5">
+                <input type="text" id="employee-search-input" class="form-control-custom" placeholder="Search by name, email, employee ID, job title...">
+              </div>
+              <div class="col-md-4">
+                <select id="employee-filter-dept" class="form-select-custom" onchange="loadEmployees()">
+                  <option value="ALL">All Departments</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Design & Marketing">Design & Marketing</option>
+                  <option value="DevOps & Cloud Ops">DevOps & Cloud Ops</option>
+                  <option value="Sales & Business Dev">Sales & Business Dev</option>
+                  <option value="Data & Analytics">Data & Analytics</option>
+                  <option value="Human Resources">Human Resources</option>
+                  <option value="Finance & Accounts">Finance & Accounts</option>
+                  <option value="Information Technology">Information Technology</option>
+                </select>
+              </div>
+              <div class="col-md-3 text-end">
+                <span class="text-secondary small fw-semibold">Employees: <span id="employee-results-count" class="text-white">0</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive-custom">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Employee ID</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Department</th>
+                  <th>Job Title</th>
+                  <th>Assigned Software</th>
+                  <th>Status</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="employees-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 6. VENDORS VIEW -->
+        <section id="view-vendors" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>Vendor Management</h3>
+              <p>Manage software providers, contact details, total spending, and active agreements</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-primary-custom role-admin-only" onclick="openAddVendorModal()"><i class="fa-solid fa-plus me-1"></i> Add Vendor</button>
+            </div>
+          </div>
+
+          <div class="card-custom mb-3 p-3">
+            <div class="row g-2 align-items-center">
+              <div class="col-md-6">
+                <input type="text" id="vendor-search-input" class="form-control-custom" placeholder="Search vendor name, contact person, email...">
+              </div>
+              <div class="col-md-6 text-end">
+                <span class="text-secondary small fw-semibold">Vendors Count: <span id="vendor-results-count" class="text-white">0</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive-custom">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Vendor ID</th>
+                  <th>Vendor Name</th>
+                  <th>Contact Person</th>
+                  <th>Email & Phone</th>
+                  <th>Software Count</th>
+                  <th>Licenses</th>
+                  <th>Total Spend (INR)</th>
+                  <th>Upcoming Renewals</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="vendors-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 7. RENEWALS PIPELINE VIEW -->
+        <section id="view-renewals" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>License Renewal Management</h3>
+              <p>Automated pipeline tracking licenses expiring in 90, 60, 30, 7 days or lapsed</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-primary-custom role-admin-manager" onclick="openCreateRenewalModal()"><i class="fa-solid fa-plus me-1"></i> New Renewal Entry</button>
+            </div>
+          </div>
+
+          <!-- Urgency Filters -->
+          <div class="card-custom mb-3 p-3">
+            <div class="row g-2 align-items-center">
+              <div class="col-md-4">
+                <input type="text" id="renewal-search-input" class="form-control-custom" placeholder="Search by software name or vendor...">
+              </div>
+              <div class="col-md-3">
+                <select id="renewal-filter-urgency" class="form-select-custom" onchange="loadRenewals()">
+                  <option value="ALL">All Urgencies</option>
+                  <option value="CRITICAL">Critical (&le; 7 Days)</option>
+                  <option value="URGENT">Urgent (&le; 30 Days)</option>
+                  <option value="EXPIRING SOON">Expiring Soon (&le; 90 Days)</option>
+                  <option value="EXPIRED">Expired</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select id="renewal-filter-status" class="form-select-custom" onchange="loadRenewals()">
+                  <option value="ALL">All Workflow Statuses</option>
+                  <option value="Not Started">Not Started</option>
+                  <option value="Review Required">Review Required</option>
+                  <option value="Renewal Requested">Renewal Requested</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Renewed">Renewed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="text-secondary small fw-semibold">Items: <span id="renewal-results-count" class="text-white">0</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive-custom">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Renewal ID</th>
+                  <th>Software</th>
+                  <th>Vendor</th>
+                  <th>Renewal Due Date</th>
+                  <th>Cost (INR)</th>
+                  <th>Urgency</th>
+                  <th>Workflow Status</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="renewals-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 8. NOTIFICATIONS VIEW -->
+        <section id="view-notifications" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>Alerts & Notification Center</h3>
+              <p>Dynamic automated notifications for license expirations, high seat utilization (&gt;80%, &gt;90%, 100%) and renewal alerts</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-secondary-custom" onclick="markAllNotificationsRead()"><i class="fa-solid fa-check-double me-1"></i> Mark All as Read</button>
+            </div>
+          </div>
+
+          <div class="card-custom p-0 overflow-hidden">
+            <div class="p-3 bg-dark border-bottom border-secondary d-flex justify-content-between align-items-center">
+              <span class="fw-semibold text-white small"><i class="fa-solid fa-bell text-warning me-2"></i> Active System Alerts</span>
+              <span class="badge bg-primary" id="notif-full-unread-count">0 Unread</span>
+            </div>
+            <div id="notifications-full-list" class="divide-y">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. REPORTS & ANALYTICS VIEW -->
+        <section id="view-reports" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>Reports & Analytical Intelligence</h3>
+              <p>Generate comprehensive audits for license utilization, expirations, budgets, vendor allocations, and download CSV/PDF</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-secondary-custom" onclick="exportCurrentReportCSV()"><i class="fa-solid fa-file-csv me-1 text-success"></i> Export CSV</button>
+              <button class="btn-primary-custom" onclick="exportCurrentReportPDF()"><i class="fa-solid fa-file-pdf me-1"></i> Export PDF / Print</button>
+            </div>
+          </div>
+
+          <!-- Report Type Selector Tabs -->
+          <ul class="nav nav-pills mb-4 gap-2 bg-dark p-2 rounded border border-secondary" id="report-tabs">
+            <li class="nav-item">
+              <button class="btn btn-sm btn-outline-light active" data-report="utilization" onclick="switchReportTab('utilization')">
+                <i class="fa-solid fa-chart-column me-1"></i> 1. License Utilization
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-sm btn-outline-light" data-report="expiration" onclick="switchReportTab('expiration')">
+                <i class="fa-solid fa-clock me-1"></i> 2. License Expirations
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-sm btn-outline-light" data-report="cost" onclick="switchReportTab('cost')">
+                <i class="fa-solid fa-money-bill-wave me-1"></i> 3. License Spending
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-sm btn-outline-light" data-report="vendors" onclick="switchReportTab('vendors')">
+                <i class="fa-solid fa-building me-1"></i> 4. Vendor Spending
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-sm btn-outline-light" data-report="departments" onclick="switchReportTab('departments')">
+                <i class="fa-solid fa-sitemap me-1"></i> 5. Department Spending
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-sm btn-outline-light" data-report="assignments" onclick="switchReportTab('assignments')">
+                <i class="fa-solid fa-users me-1"></i> 6. Employee Assignments
+              </button>
+            </li>
+          </ul>
+
+          <!-- Report Container -->
+          <div class="card-custom mb-3" id="report-summary-box">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="text-white fw-bold m-0" id="report-display-title">License Utilization Report</h5>
+              <span class="badge bg-primary" id="report-timestamp">Generated Just Now</span>
+            </div>
+            <p class="text-secondary small m-0" id="report-display-subtitle">Complete utilization percentage and per-seat cost analysis</p>
+          </div>
+
+          <div class="table-responsive-custom" id="report-table-wrapper">
+            <table class="table-custom" id="report-data-table">
+              <thead id="report-table-head">
+                <!-- Populated dynamically based on report -->
+              </thead>
+              <tbody id="report-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 10. AUDIT LOGS VIEW -->
+        <section id="view-audit" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>System Audit Trail</h3>
+              <p>Tamper-evident chronological activity log capturing all logins, allocations, creations, and updates</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-secondary-custom" onclick="loadAuditLogs()"><i class="fa-solid fa-rotate me-1"></i> Refresh</button>
+            </div>
+          </div>
+
+          <div class="card-custom mb-3 p-3">
+            <div class="row g-2 align-items-center">
+              <div class="col-md-4">
+                <input type="text" id="audit-search-input" class="form-control-custom" placeholder="Search user, action, description...">
+              </div>
+              <div class="col-md-3">
+                <select id="audit-filter-module" class="form-select-custom" onchange="loadAuditLogs()">
+                  <option value="ALL">All Modules</option>
+                  <option value="AUTH">AUTH</option>
+                  <option value="SOFTWARE">SOFTWARE</option>
+                  <option value="LICENSES">LICENSES</option>
+                  <option value="SEAT_ALLOCATION">SEAT_ALLOCATION</option>
+                  <option value="EMPLOYEES">EMPLOYEES</option>
+                  <option value="VENDORS">VENDORS</option>
+                  <option value="RENEWALS">RENEWALS</option>
+                  <option value="SETTINGS">SETTINGS</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select id="audit-filter-action" class="form-select-custom" onchange="loadAuditLogs()">
+                  <option value="ALL">All Actions</option>
+                  <option value="LOGIN">LOGIN</option>
+                  <option value="SOFTWARE_ADDED">SOFTWARE_ADDED</option>
+                  <option value="LICENSE_ADDED">LICENSE_ADDED</option>
+                  <option value="LICENSE_ASSIGNED">LICENSE_ASSIGNED</option>
+                  <option value="LICENSE_REVOKED">LICENSE_REVOKED</option>
+                  <option value="LICENSE_RENEWED">LICENSE_RENEWED</option>
+                  <option value="EMPLOYEE_ADDED">EMPLOYEE_ADDED</option>
+                  <option value="VENDOR_ADDED">VENDOR_ADDED</option>
+                </select>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="text-secondary small fw-semibold">Logs: <span id="audit-results-count" class="text-white">0</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive-custom">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>User</th>
+                  <th>Module</th>
+                  <th>Action</th>
+                  <th>Record ID</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 11. SETTINGS VIEW -->
+        <section id="view-settings" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>System Settings & JSON Database Management</h3>
+              <p>Configure corporate parameters, alert thresholds, download JSON backups, or reset demo data</p>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-lg-7">
+              <div class="card-custom">
+                <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-building-circle-gear me-2 text-primary"></i> Company & Currency Configurations</h5>
+                <form id="settings-form">
+                  <div class="mb-3">
+                    <label class="form-label-custom">Company / Organization Name</label>
+                    <input type="text" id="setting-company-name" class="form-control-custom" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label-custom">HQ Corporate Address</label>
+                    <input type="text" id="setting-company-address" class="form-control-custom">
+                  </div>
+                  <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label-custom">IT Admin Email</label>
+                      <input type="email" id="setting-company-email" class="form-control-custom">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-custom">Default Currency Symbol</label>
+                      <input type="text" id="setting-currency" class="form-control-custom" value="₹">
+                    </div>
+                  </div>
+
+                  <h6 class="text-white fw-semibold mt-4 mb-3"><i class="fa-solid fa-bell me-2 text-warning"></i> Automated Alert Thresholds</h6>
+                  <div class="row g-3 mb-3">
+                    <div class="col-md-4">
+                      <label class="form-label-custom">Critical Expiration</label>
+                      <div class="input-group">
+                        <input type="number" id="setting-crit-days" class="form-control-custom" value="7">
+                        <span class="input-group-text bg-dark border-secondary text-secondary small">Days</span>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label-custom">Urgent Expiration</label>
+                      <div class="input-group">
+                        <input type="number" id="setting-urg-days" class="form-control-custom" value="30">
+                        <span class="input-group-text bg-dark border-secondary text-secondary small">Days</span>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label-custom">Warning Threshold</label>
+                      <div class="input-group">
+                        <input type="number" id="setting-warn-days" class="form-control-custom" value="90">
+                        <span class="input-group-text bg-dark border-secondary text-secondary small">Days</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                      <label class="form-label-custom">High Seat Utilization Trigger</label>
+                      <div class="input-group">
+                        <input type="number" id="setting-high-util" class="form-control-custom" value="80">
+                        <span class="input-group-text bg-dark border-secondary text-secondary small">%</span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-custom">Critical Seat Utilization Trigger</label>
+                      <div class="input-group">
+                        <input type="number" id="setting-crit-util" class="form-control-custom" value="90">
+                        <span class="input-group-text bg-dark border-secondary text-secondary small">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn-primary-custom"><i class="fa-solid fa-floppy-disk me-1"></i> Save Configuration</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <!-- JSON Database Tools Card -->
+              <div class="card-custom mb-4">
+                <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-database me-2 text-info"></i> JSON Database Tools</h5>
+                <p class="text-secondary small">Download a full JSON database snapshot backup or restore fresh Indian corporate sample data for demonstrations.</p>
+                <div class="d-flex flex-column gap-2 mt-3">
+                  <button class="btn-secondary-custom justify-content-center py-2" onclick="downloadDatabaseBackup()">
+                    <i class="fa-solid fa-download me-2 text-primary"></i> Export Full JSON Database Backup
+                  </button>
+                  <button class="btn btn-outline-danger justify-content-center py-2 mt-2" onclick="confirmResetDatabase()">
+                    <i class="fa-solid fa-rotate-left me-2"></i> Reset Database to Factory Seed Data
+                  </button>
+                </div>
+              </div>
+
+              <!-- Render Deployment Note Card -->
+              <div class="card-custom" style="border-left: 4px solid #10b981;">
+                <h6 class="text-white fw-bold mb-2"><i class="fa-solid fa-cloud-arrow-up text-success me-2"></i> Render Cloud Deployment</h6>
+                <p class="text-secondary small mb-2">
+                  This academic application is configured for Node.js deployment on Render using <code>process.env.PORT</code> dynamic port binding and atomic JSON file writing.
+                </p>
+                <div class="small text-muted">
+                  <strong>Start Command:</strong> <code>npm start</code><br>
+                  <strong>Health Check:</strong> <code>/api/health</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 12. EMPLOYEE PERSONAL WORKSPACE VIEW -->
+        <section id="view-employee-portal" class="page-view">
+          <div class="page-header">
+            <div class="page-title">
+              <h3>My Software Assets & License Keys</h3>
+              <p>View your assigned enterprise software tools, active licenses, and request access to new tools</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn-primary-custom" onclick="openRequestSoftwareModal()"><i class="fa-solid fa-paper-plane me-1"></i> Request Software Access</button>
+            </div>
+          </div>
+
+          <div class="card-custom mb-4 p-4" style="background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(30, 41, 59, 0.8));">
+            <div class="d-flex align-items-center gap-3">
+              <img src="" id="emp-portal-avatar" class="user-avatar" style="width: 54px; height: 54px;">
+              <div>
+                <h4 class="text-white fw-bold m-0" id="emp-portal-name">Rohan Deshmukh</h4>
+                <div class="text-secondary small"><span id="emp-portal-designation">Senior Full Stack Engineer</span> &bull; <span id="emp-portal-dept">Engineering</span></div>
+              </div>
+              <div class="ms-auto text-end">
+                <span class="badge bg-success" style="font-size: 0.75rem;">Active Employee</span>
+                <div class="small text-muted mt-1">Total Tools: <span class="text-white fw-bold" id="emp-portal-tools-count">0</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive-custom">
+            <table class="table-custom">
+              <thead>
+                <tr>
+                  <th>Software Name</th>
+                  <th>License ID</th>
+                  <th>License Key / Reference</th>
+                  <th>Assigned Date</th>
+                  <th>Expiration Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="emp-portal-assets-table">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Modal: Software Form (Add / Edit) -->
+  <div class="modal fade" id="softwareModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold text-white" id="softwareModalTitle"><i class="fa-solid fa-cube me-2 text-primary"></i> Add Software Asset</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="software-form">
+          <div class="modal-body p-4">
+            <input type="hidden" id="sw-id">
+            <div class="mb-3">
+              <label class="form-label-custom">Software Name *</label>
+              <input type="text" id="sw-name" class="form-control-custom" placeholder="e.g. JetBrains All Products Pack" required>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Category *</label>
+                <select id="sw-category" class="form-select-custom" required>
+                  <option value="Development Tools">Development Tools</option>
+                  <option value="Productivity & Collaboration">Productivity & Collaboration</option>
+                  <option value="Design & Multimedia">Design & Multimedia</option>
+                  <option value="Cloud Infrastructure">Cloud Infrastructure</option>
+                  <option value="DevOps & Source Control">DevOps & Source Control</option>
+                  <option value="CRM & Customer Success">CRM & Customer Success</option>
+                  <option value="Business Intelligence & Data">Business Intelligence & Data</option>
+                  <option value="Security & Compliance">Security & Compliance</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Version *</label>
+                <input type="text" id="sw-version" class="form-control-custom" placeholder="e.g. 2026.1" required>
+              </div>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Vendor *</label>
+                <select id="sw-vendor" class="form-select-custom" required>
+                  <!-- Populated from vendors list -->
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Target Department *</label>
+                <select id="sw-department" class="form-select-custom" required>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Design & Marketing">Design & Marketing</option>
+                  <option value="DevOps & Cloud Ops">DevOps & Cloud Ops</option>
+                  <option value="Sales & Business Dev">Sales & Business Dev</option>
+                  <option value="Data & Analytics">Data & Analytics</option>
+                  <option value="Human Resources">Human Resources</option>
+                  <option value="Finance & Accounts">Finance & Accounts</option>
+                  <option value="All Departments">All Departments</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Description</label>
+              <textarea id="sw-description" class="form-control-custom" rows="2" placeholder="Describe software usage and capabilities..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-primary-custom"><i class="fa-solid fa-floppy-disk me-1"></i> Save Software</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: License Form (Add / Edit) -->
+  <div class="modal fade" id="licenseModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold text-white" id="licenseModalTitle"><i class="fa-solid fa-key me-2 text-warning"></i> Add Software License</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="license-form">
+          <div class="modal-body p-4">
+            <input type="hidden" id="lic-id">
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Software Asset *</label>
+                <select id="lic-software-id" class="form-select-custom" required>
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">License Key / Contract Reference *</label>
+                <input type="text" id="lic-key" class="form-control-custom" placeholder="e.g. MSFT-E5-8892-IND-99124-KL" required>
+              </div>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-4">
+                <label class="form-label-custom">Total Seat Capacity *</label>
+                <input type="number" id="lic-total-seats" class="form-control-custom" min="1" value="10" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label-custom">Annual Cost (INR ₹) *</label>
+                <input type="number" id="lic-cost" class="form-control-custom" min="0" value="100000" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label-custom">License Type</label>
+                <select id="lic-type" class="form-select-custom">
+                  <option value="Subscription / Per-User">Subscription / Per-User</option>
+                  <option value="Annual Subscription">Annual Subscription</option>
+                  <option value="Per Seat / Monthly">Per Seat / Monthly</option>
+                  <option value="Perpetual License">Perpetual License</option>
+                  <option value="Tiered Seat License">Tiered Seat License</option>
+                </select>
+              </div>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Start Date *</label>
+                <input type="date" id="lic-start-date" class="form-control-custom" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Expiration Date *</label>
+                <input type="date" id="lic-expiration-date" class="form-control-custom" required>
+              </div>
+            </div>
+            <div class="mb-3 form-check form-switch ps-5">
+              <input class="form-check-input" type="checkbox" id="lic-auto-renewal" checked>
+              <label class="form-check-label text-white small" for="lic-auto-renewal">Enable Auto-Renewal Agreement with Vendor</label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Notes / Procurement Details</label>
+              <textarea id="lic-notes" class="form-control-custom" rows="2" placeholder="Add licensing terms, purchase order reference..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-primary-custom"><i class="fa-solid fa-floppy-disk me-1"></i> Save License</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Allocate Seat -->
+  <div class="modal fade" id="allocateSeatModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold text-white"><i class="fa-solid fa-chair me-2 text-success"></i> Allocate License Seat</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="allocate-seat-form">
+          <div class="modal-body p-4">
+            <div class="mb-3">
+              <label class="form-label-custom">Select License *</label>
+              <select id="alloc-license-select" class="form-select-custom" required onchange="updateSeatAvailabilityPreview(this.value)">
+                <!-- Populated dynamically -->
+              </select>
+              <div id="alloc-availability-badge" class="mt-2 small text-muted">
+                <!-- Available seats preview -->
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Select Employee *</label>
+              <select id="alloc-employee-select" class="form-select-custom" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Allocation Notes / Justification</label>
+              <input type="text" id="alloc-notes" class="form-control-custom" placeholder="e.g. Primary IDE for new project lead">
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-primary-custom"><i class="fa-solid fa-check me-1"></i> Confirm Seat Allocation</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Employee Form (Add / Edit) -->
+  <div class="modal fade" id="employeeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold text-white" id="employeeModalTitle"><i class="fa-solid fa-user-plus me-2 text-primary"></i> Add Corporate Employee</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="employee-form">
+          <div class="modal-body p-4">
+            <input type="hidden" id="emp-id">
+            <div class="mb-3">
+              <label class="form-label-custom">Full Name *</label>
+              <input type="text" id="emp-name" class="form-control-custom" placeholder="e.g. Rohan Deshmukh" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Corporate Email Address *</label>
+              <input type="email" id="emp-email" class="form-control-custom" placeholder="name@bharattech.com" required>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Department *</label>
+                <select id="emp-department" class="form-select-custom" required>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Design & Marketing">Design & Marketing</option>
+                  <option value="DevOps & Cloud Ops">DevOps & Cloud Ops</option>
+                  <option value="Sales & Business Dev">Sales & Business Dev</option>
+                  <option value="Data & Analytics">Data & Analytics</option>
+                  <option value="Human Resources">Human Resources</option>
+                  <option value="Finance & Accounts">Finance & Accounts</option>
+                  <option value="Information Technology">Information Technology</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Job Title / Designation *</label>
+                <input type="text" id="emp-title" class="form-control-custom" placeholder="e.g. Senior Backend Engineer" required>
+              </div>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Joining Date</label>
+                <input type="date" id="emp-join-date" class="form-control-custom">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Phone Number</label>
+                <input type="text" id="emp-phone" class="form-control-custom" placeholder="+91 98201 12345">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-primary-custom"><i class="fa-solid fa-floppy-disk me-1"></i> Save Employee</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Vendor Form (Add / Edit) -->
+  <div class="modal fade" id="vendorModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold text-white" id="vendorModalTitle"><i class="fa-solid fa-building me-2 text-primary"></i> Add Software Vendor</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="vendor-form">
+          <div class="modal-body p-4">
+            <input type="hidden" id="vnd-id">
+            <div class="mb-3">
+              <label class="form-label-custom">Vendor Company Name *</label>
+              <input type="text" id="vnd-name" class="form-control-custom" placeholder="e.g. Atlassian India LLP" required>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Contact Person *</label>
+                <input type="text" id="vnd-contact" class="form-control-custom" placeholder="e.g. Karan Patel" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Contact Email *</label>
+                <input type="email" id="vnd-email" class="form-control-custom" placeholder="sales@vendor.com" required>
+              </div>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Phone Number</label>
+                <input type="text" id="vnd-phone" class="form-control-custom" placeholder="+91 80 4683 2000">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Website URL</label>
+                <input type="url" id="vnd-website" class="form-control-custom" placeholder="https://vendor.com">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Office Address</label>
+              <textarea id="vnd-address" class="form-control-custom" rows="2" placeholder="Registered office address..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-primary-custom"><i class="fa-solid fa-floppy-disk me-1"></i> Save Vendor</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Execute Renewal -->
+  <div class="modal fade" id="executeRenewalModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold text-white"><i class="fa-solid fa-rotate text-success me-2"></i> Execute Contract Renewal</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="execute-renewal-form">
+          <div class="modal-body p-4">
+            <input type="hidden" id="exec-renewal-id">
+            <div class="p-3 mb-3 rounded bg-dark border border-secondary">
+              <div class="text-white fw-bold" id="exec-renewal-software-name">Software Name</div>
+              <div class="text-secondary small" id="exec-renewal-license-id">LIC-000</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">New Expiration Date *</label>
+              <input type="date" id="exec-renewal-new-date" class="form-control-custom" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Renewal Cost (INR ₹)</label>
+              <input type="number" id="exec-renewal-cost" class="form-control-custom" min="0" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Renewal Notes</label>
+              <textarea id="exec-renewal-notes" class="form-control-custom" rows="2" placeholder="e.g. Approved 1-year extension with 10% volume discount."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-primary-custom"><i class="fa-solid fa-check me-1"></i> Confirm & Renew License</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Employee Request Access -->
+  <div class="modal fade" id="requestSoftwareModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold text-white"><i class="fa-solid fa-paper-plane text-primary me-2"></i> Request Software Access</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="request-software-form">
+          <div class="modal-body p-4">
+            <div class="mb-3">
+              <label class="form-label-custom">Select Software Tool *</label>
+              <select id="req-software-select" class="form-select-custom" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Business Justification / Project Need *</label>
+              <textarea id="req-software-reason" class="form-control-custom" rows="3" placeholder="Explain why you need access to this tool..." required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-primary-custom"><i class="fa-solid fa-paper-plane me-1"></i> Submit Request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Modular Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/software.js"></script>
+  <script src="js/licenses.js"></script>
+  <script src="js/allocations.js"></script>
+  <script src="js/employees.js"></script>
+  <script src="js/vendors.js"></script>
+  <script src="js/renewals.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/reports.js"></script>
+  <script src="js/audit.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

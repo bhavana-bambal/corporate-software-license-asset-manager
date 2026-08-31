@@ -1,0 +1,312 @@
+[
+  {
+    "logId": "AUD-2542",
+    "timestamp": "2026-08-31T08:09:37.458Z",
+    "user": "Priya Sundaram (LICENSE_MANAGER)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_RENEWED",
+    "module": "RENEWALS",
+    "recordId": "LIC-015",
+    "description": "Renewed license \"Figma Enterprise Organization (Marketing)\" (LIC-015) until 2027-08-31. Cost: ₹ 95000."
+  },
+  {
+    "logId": "AUD-8005",
+    "timestamp": "2026-08-31T08:09:31.839Z",
+    "user": "Priya Sundaram (manager@bharattech.com)",
+    "role": "LICENSE_MANAGER",
+    "action": "RENEWAL_STATUS_UPDATED",
+    "module": "RENEWALS",
+    "recordId": "RNW-5724",
+    "description": "Updated renewal RNW-5724 status to \"Review Required\"."
+  },
+  {
+    "logId": "AUD-8258",
+    "timestamp": "2026-08-31T08:08:39.973Z",
+    "user": "Priya Sundaram (manager@bharattech.com)",
+    "role": "LICENSE_MANAGER",
+    "action": "LICENSE_ADDED",
+    "module": "LICENSES",
+    "recordId": "LIC-8929",
+    "description": "Added license \"Datadog APM Enterprise\" (LIC-8929) with 10 seats."
+  },
+  {
+    "logId": "AUD-5360",
+    "timestamp": "2026-08-31T07:52:12.588Z",
+    "user": "Priya Sundaram (LICENSE_MANAGER)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_ASSIGNED",
+    "module": "SEAT_ALLOCATION",
+    "recordId": "ASN-2526",
+    "description": "Assigned 1 seat of \"Microsoft 365 E5 Enterprise (Branch Office)\" (LIC-013) to Neha Bansal (EMP-109)."
+  },
+  {
+    "logId": "AUD-7539",
+    "timestamp": "2026-08-31T07:50:55.318Z",
+    "user": "Priya Sundaram (manager@bharattech.com)",
+    "role": "LICENSE_MANAGER",
+    "action": "LOGIN",
+    "module": "AUTH",
+    "recordId": "USR-002",
+    "description": "User successfully logged into the Corporate License & Asset Manager."
+  },
+  {
+    "logId": "AUD-1506",
+    "timestamp": "2026-08-31T07:42:51.915Z",
+    "user": "Rohan Deshmukh (employee@bharattech.com)",
+    "role": "EMPLOYEE",
+    "action": "ACCESS_REQUESTED",
+    "module": "EMPLOYEES",
+    "recordId": "SW-9079",
+    "description": "Rohan Deshmukh submitted an access request for Datadog APM Enterprise."
+  },
+  {
+    "logId": "AUD-3076",
+    "timestamp": "2026-08-31T07:42:51.892Z",
+    "user": "Rohan Deshmukh (employee@bharattech.com)",
+    "role": "EMPLOYEE",
+    "action": "LOGIN",
+    "module": "AUTH",
+    "recordId": "USR-003",
+    "description": "User successfully logged into the Corporate License & Asset Manager."
+  },
+  {
+    "logId": "AUD-2929",
+    "timestamp": "2026-08-31T07:42:51.553Z",
+    "user": "Aarav Sharma (ADMIN)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_RENEWED",
+    "module": "RENEWALS",
+    "recordId": "LIC-016",
+    "description": "Renewed license \"Adobe Creative Cloud (Video Editing Pod)\" (LIC-016) until 2027-08-31. Cost: ₹ 400000."
+  },
+  {
+    "logId": "AUD-9091",
+    "timestamp": "2026-08-31T07:42:51.485Z",
+    "user": "Aarav Sharma (ADMIN)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_ASSIGNED",
+    "module": "SEAT_ALLOCATION",
+    "recordId": "ASN-9956",
+    "description": "Assigned 1 seat of \"Datadog APM Enterprise\" (LIC-9529) to Tarun Kumar (EMP-2834)."
+  },
+  {
+    "logId": "AUD-8242",
+    "timestamp": "2026-08-31T07:42:51.453Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "EMPLOYEE_ADDED",
+    "module": "EMPLOYEES",
+    "recordId": "EMP-2834",
+    "description": "Added employee Tarun Kumar (EMP-2834) to DevOps & Cloud Ops."
+  },
+  {
+    "logId": "AUD-6452",
+    "timestamp": "2026-08-31T07:42:51.426Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "LICENSE_ADDED",
+    "module": "LICENSES",
+    "recordId": "LIC-9529",
+    "description": "Added license \"Datadog APM Enterprise\" (LIC-9529) with 5 seats."
+  },
+  {
+    "logId": "AUD-1860",
+    "timestamp": "2026-08-31T07:42:51.397Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "VENDOR_ADDED",
+    "module": "VENDORS",
+    "recordId": "VND-9135",
+    "description": "Added new vendor \"Datadog India Pvt Ltd\" (VND-9135)."
+  },
+  {
+    "logId": "AUD-2106",
+    "timestamp": "2026-08-31T07:42:51.368Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "SOFTWARE_ADDED",
+    "module": "SOFTWARE",
+    "recordId": "SW-9079",
+    "description": "Added new software asset \"Datadog APM Enterprise\" (SW-9079)."
+  },
+  {
+    "logId": "AUD-7579",
+    "timestamp": "2026-08-31T07:42:51.257Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "LOGIN",
+    "module": "AUTH",
+    "recordId": "USR-001",
+    "description": "User successfully logged into the Corporate License & Asset Manager."
+  },
+  {
+    "logId": "AUD-2598",
+    "timestamp": "2026-08-31T07:36:25.004Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "SOFTWARE_DELETED",
+    "module": "SOFTWARE",
+    "recordId": "SW-4623",
+    "description": "Deleted software asset \"IntelliTest Pro Suite\" (SW-4623)."
+  },
+  {
+    "logId": "AUD-1137",
+    "timestamp": "2026-08-31T07:36:24.977Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "LICENSE_DELETED",
+    "module": "LICENSES",
+    "recordId": "LIC-1890",
+    "description": "Deleted license \"IntelliTest Pro Suite\" (LIC-1890)."
+  },
+  {
+    "logId": "AUD-8476",
+    "timestamp": "2026-08-31T07:36:24.947Z",
+    "user": "Aarav Sharma (ADMIN)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_REVOKED",
+    "module": "SEAT_ALLOCATION",
+    "recordId": "ASN-8375",
+    "description": "Revoked seat of \"IntelliTest Pro Suite\" from Ananya Sharma (EMP-102). Reason: Normal reclamation."
+  },
+  {
+    "logId": "AUD-9966",
+    "timestamp": "2026-08-31T07:36:24.846Z",
+    "user": "Aarav Sharma (ADMIN)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_RENEWED",
+    "module": "RENEWALS",
+    "recordId": "LIC-002",
+    "description": "Renewed license \"Adobe Creative Cloud Enterprise\" (LIC-002) until 2027-08-31. Cost: ₹ 410000."
+  },
+  {
+    "logId": "AUD-1532",
+    "timestamp": "2026-08-31T07:36:24.734Z",
+    "user": "Aarav Sharma (ADMIN)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_REVOKED",
+    "module": "SEAT_ALLOCATION",
+    "recordId": "ASN-6383",
+    "description": "Revoked seat of \"IntelliTest Pro Suite\" from Rohan Deshmukh (EMP-101). Reason: Project completed."
+  },
+  {
+    "logId": "AUD-1722",
+    "timestamp": "2026-08-31T07:36:24.694Z",
+    "user": "Aarav Sharma (ADMIN)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_ASSIGNED",
+    "module": "SEAT_ALLOCATION",
+    "recordId": "ASN-8375",
+    "description": "Assigned 1 seat of \"IntelliTest Pro Suite\" (LIC-1890) to Ananya Sharma (EMP-102)."
+  },
+  {
+    "logId": "AUD-3249",
+    "timestamp": "2026-08-31T07:36:24.652Z",
+    "user": "Aarav Sharma (ADMIN)",
+    "role": "ADMIN_OR_MANAGER",
+    "action": "LICENSE_ASSIGNED",
+    "module": "SEAT_ALLOCATION",
+    "recordId": "ASN-6383",
+    "description": "Assigned 1 seat of \"IntelliTest Pro Suite\" (LIC-1890) to Rohan Deshmukh (EMP-101)."
+  },
+  {
+    "logId": "AUD-4835",
+    "timestamp": "2026-08-31T07:36:24.610Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "LICENSE_ADDED",
+    "module": "LICENSES",
+    "recordId": "LIC-1890",
+    "description": "Added license \"IntelliTest Pro Suite\" (LIC-1890) with 2 seats."
+  },
+  {
+    "logId": "AUD-1331",
+    "timestamp": "2026-08-31T07:36:24.555Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "SOFTWARE_ADDED",
+    "module": "SOFTWARE",
+    "recordId": "SW-4623",
+    "description": "Added new software asset \"IntelliTest Pro Suite\" (SW-4623)."
+  },
+  {
+    "logId": "AUD-6780",
+    "timestamp": "2026-08-31T07:36:24.448Z",
+    "user": "Rohan Deshmukh (employee@bharattech.com)",
+    "role": "EMPLOYEE",
+    "action": "LOGIN",
+    "module": "AUTH",
+    "recordId": "USR-003",
+    "description": "User successfully logged into the Corporate License & Asset Manager."
+  },
+  {
+    "logId": "AUD-9819",
+    "timestamp": "2026-08-31T07:36:24.207Z",
+    "user": "Priya Sundaram (manager@bharattech.com)",
+    "role": "LICENSE_MANAGER",
+    "action": "LOGIN",
+    "module": "AUTH",
+    "recordId": "USR-002",
+    "description": "User successfully logged into the Corporate License & Asset Manager."
+  },
+  {
+    "logId": "AUD-2940",
+    "timestamp": "2026-08-31T07:36:23.981Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "LOGIN",
+    "module": "AUTH",
+    "recordId": "USR-001",
+    "description": "User successfully logged into the Corporate License & Asset Manager."
+  },
+  {
+    "logId": "AUD-001",
+    "timestamp": "2026-08-31T07:36:23.217Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "SYSTEM_INITIALIZATION",
+    "module": "SYSTEM",
+    "recordId": "SYS-INIT",
+    "description": "System seed database loaded with Indian corporate sample assets."
+  },
+  {
+    "logId": "AUD-002",
+    "timestamp": "2026-08-31T05:36:23.217Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "LOGIN",
+    "module": "AUTH",
+    "recordId": "USR-001",
+    "description": "Admin user logged in from 192.168.1.100 (Bengaluru HQ)."
+  },
+  {
+    "logId": "AUD-003",
+    "timestamp": "2026-08-31T02:36:23.217Z",
+    "user": "Priya Sundaram (manager@bharattech.com)",
+    "role": "LICENSE_MANAGER",
+    "action": "LICENSE_ASSIGNED",
+    "module": "SEAT_ALLOCATION",
+    "recordId": "ASN-012",
+    "description": "Assigned 1 seat of Postman Enterprise (LIC-012) to Shreya Sengupta (EMP-112)."
+  },
+  {
+    "logId": "AUD-004",
+    "timestamp": "2026-08-30T19:36:23.217Z",
+    "user": "Aarav Sharma (admin@bharattech.com)",
+    "role": "ADMIN",
+    "action": "RENEWAL_APPROVED",
+    "module": "RENEWALS",
+    "recordId": "RNW-001",
+    "description": "Approved renewal request RNW-001 for Adobe Creative Cloud Enterprise (₹ 3,95,000)."
+  },
+  {
+    "logId": "AUD-005",
+    "timestamp": "2026-08-30T07:36:23.217Z",
+    "user": "Priya Sundaram (manager@bharattech.com)",
+    "role": "LICENSE_MANAGER",
+    "action": "SOFTWARE_ADDED",
+    "module": "SOFTWARE",
+    "recordId": "SW-012",
+    "description": "Added new software asset: Postman Enterprise API Platform."
+  }
+]
