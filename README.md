@@ -14,8 +14,8 @@ Designed for academic evaluation and production-style deployment on **Render**, 
 
 ## 🔗 Project Links
 
-- **GitHub Repository URL:** `https://github.com/your-username/corporate-software-license-asset-manager`
-- **Live Render URL:** `https://corporate-software-license-asset-manager.onrender.com`
+- **GitHub Repository URL:** `https://github.com/bhavana-bambal/corporate-software-license-asset-manager`
+- **Live Render URL:** `https://corporate-software-license-asset-manager.onrender.com
 
 ---
 
